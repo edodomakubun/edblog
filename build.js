@@ -4,48 +4,61 @@ const path = require('path');
 const kontenDir = path.join(__dirname, 'konten');
 const indexFile = path.join(__dirname, 'index.html');
 
-// Pastikan folder konten ada
 if (!fs.existsSync(kontenDir)) {
     console.log("Folder /konten tidak ditemukan!");
     process.exit(1);
 }
 
-// Baca semua file .html di dalam folder /konten
 const files = fs.readdirSync(kontenDir).filter(f => f.endsWith('.html'));
-
 let gridHtml = '';
 
 files.forEach(file => {
     const slug = file.replace('.html', '');
     const content = fs.readFileSync(path.join(kontenDir, file), 'utf-8');
     
-    // Cari tag <h2> pertama di dalam artikel untuk dijadikan Judul Kartu
+    // Ambil Judul
     const matchJudul = content.match(/<h2[^>]*>(.*?)<\/h2>/);
     const judul = matchJudul ? matchJudul[1] : slug.replace(/-/g, ' ');
 
-    // Cari tag <img> pertama untuk dijadikan Thumbnail (opsional)
+    // Ambil Gambar
     const matchGambar = content.match(/<img[^>]+src="([^">]+)"/);
     const gambar = matchGambar ? matchGambar[1] : 'https://placehold.co/600x400/e2e8f0/475569?text=No+Image';
 
-    // Buat HTML Card (Bento/Glass style)
+    // Ekstraksi Tanggal & Cuplikan Singkat (Excerpt)
+    const paragraphs = content.match(/<p[^>]*>(.*?)<\/p>/g) || [];
+    let excerpt = "Klik untuk membaca selengkapnya tentang artikel ini...";
+    let tanggal = "Baru saja";
+    
+    for (let p of paragraphs) {
+        let cleanText = p.replace(/<\/?[^>]+(>|$)/g, "").trim(); // Hapus tag HTML di dalam p
+        if (cleanText.toLowerCase().includes('dipublikasikan')) {
+            tanggal = cleanText.replace(/dipublikasikan pada|dipublikasikan:/i, '').trim();
+        } else if (cleanText.length > 30 && excerpt.startsWith("Klik untuk")) {
+            excerpt = cleanText.substring(0, 110) + '...'; // Potong jadi 110 huruf
+        }
+    }
+
+    // Buat HTML Card dengan Animasi Hover Super Halus
     gridHtml += `
-    <a href="/artikel/${slug}" class="group block bg-white/60 backdrop-blur-lg border border-white/60 rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
-        <div class="h-48 w-full overflow-hidden">
-            <img src="${gambar}" alt="${judul}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+    <a href="/artikel/${slug}" class="group flex flex-col bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-1.5 transition-all duration-300">
+        <div class="h-56 w-full overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <img src="${gambar}" alt="${judul}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out">
         </div>
-        <div class="p-6">
-            <h3 class="text-xl font-bold text-slate-800 mb-2 leading-tight">${judul}</h3>
-            <p class="text-blue-600 text-sm font-semibold mt-4 group-hover:translate-x-1 transition-transform">Baca artikel &rarr;</p>
+        <div class="p-8 flex flex-col flex-grow">
+            <p class="text-xs font-bold text-blue-600 mb-3 uppercase tracking-wider">${tanggal}</p>
+            <h3 class="text-xl font-extrabold text-slate-800 mb-3 leading-snug line-clamp-2">${judul}</h3>
+            <p class="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">${excerpt}</p>
+            <div class="mt-auto flex items-center font-bold text-slate-800 group-hover:text-blue-600 transition-colors duration-300">
+                Baca artikel <span class="ml-2 transform group-hover:translate-x-2 transition-transform duration-300">&rarr;</span>
+            </div>
         </div>
     </a>
     `;
 });
 
-// Masukkan kartu yang sudah di-generate ke dalam index.html
 let indexContent = fs.readFileSync(indexFile, 'utf-8');
-const finalIndex = indexContent.replace('<!-- {{DAFTAR_ARTIKEL}} -->', gridHtml);
+const finalIndex = indexContent.replace('', gridHtml);
 
-// Simpan sebagai file baru (agar file sumber index.html tidak tertimpa)
 fs.writeFileSync(path.join(__dirname, '_site_index.html'), finalIndex);
-
-console.log(`Berhasil memproses ${files.length} artikel untuk beranda.`);
+console.log(`Berhasil memproses ${files.length} artikel dengan desain dan animasi baru.`);

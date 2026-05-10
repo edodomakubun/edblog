@@ -3,41 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Blog</title>
+    <title>Artikel | Dev Blog</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Styling tambahan untuk konten HTML murni yang di-inject */
-        .prose h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; color: #1e293b; }
-        .prose p { margin-bottom: 1.25rem; line-height: 1.75; color: #475569; }
-        .prose img { border-radius: 0.75rem; margin-bottom: 1.5rem; width: 100%; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        .prose pre { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1.5rem; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        /* Desain Tipografi Artikel agar super elegan */
+        .prose h2 { font-size: 2rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; color: #0f172a; line-height: 1.2; letter-spacing: -0.025em; }
+        .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #334155; font-size: 1.125rem; }
+        .prose img { border-radius: 1rem; margin: 2rem 0; width: 100%; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        .prose .date-meta { color: #64748b; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2rem; }
     </style>
 </head>
 <body class="bg-slate-50 antialiased min-h-screen flex flex-col font-sans">
     
-    <!-- Navbar dengan efek Glassmorphism -->
-    <nav class="sticky top-0 z-50 bg-white/60 backdrop-blur-lg border-b border-white/20 shadow-sm">
-        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl font-extrabold tracking-tight text-slate-800">Dev<span class="text-blue-600">Blog</span></a>
-            <div class="space-x-4 text-sm font-medium text-slate-600">
+    <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-extrabold tracking-tight text-slate-800 hover:scale-105 transition-transform">Dev<span class="text-blue-600">Blog</span></a>
+            <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
-                <a href="#" class="hover:text-blue-600 transition-colors">Tentang</a>
+                <a href="https://github.com" target="_blank" class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-blue-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">GitHub Saya</a>
             </div>
         </div>
     </nav>
-
-    <!-- Kontainer Artikel -->
-    <main class="flex-grow w-full max-w-3xl mx-auto px-6 py-10">
-        <article class="bg-white/80 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 prose">
+    <main class="flex-grow w-full max-w-3xl mx-auto px-6 py-12">
+        <article class="bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-slate-100 prose opacity-0 animate-fade-in">
             
-            <!-- Di sinilah Cloudflare akan memasukkan file HTML artikel kita -->
-            <!-- {{KONTEN_ARTIKEL}} -->
-
-        </article>
+            </article>
     </main>
 
-    <footer class="mt-auto py-8 text-center text-sm text-slate-500">
-        <p>&copy; 2026 DevBlog. Ditenagai oleh Cloudflare Pages.</p>
+    <footer class="mt-auto py-8 text-center text-sm font-medium text-slate-400">
+        <p>&copy;2026 Edward Domakubun. All rights reserved. Kembali ke <a href="/" class="text-blue-500 hover:underline">Beranda</a>.</p>
     </footer>
 
 </body>

@@ -5,41 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda | Dev Blog</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animasi Kustom */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+    </style>
 </head>
-<body class="bg-slate-50 antialiased min-h-screen flex flex-col font-sans relative">
+<body class="bg-slate-50 antialiased min-h-screen flex flex-col font-sans relative overflow-x-hidden">
     
-    <!-- Elemen Background Dekoratif -->
-    <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-br from-blue-100 to-purple-50 rounded-b-[3rem] -z-10"></div>
+    <div class="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-br from-blue-50 via-purple-50 to-white -z-10 [clip-path:polygon(0_0,100%_0,100%_80%,0_100%)]"></div>
 
-    <!-- Navbar Glassmorphism -->
-    <nav class="sticky top-0 z-50 bg-white/40 backdrop-blur-xl border-b border-white/40 shadow-sm">
+    <nav class="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/50 shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-300">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-extrabold tracking-tight text-slate-800">Dev<span class="text-blue-600">Blog</span></a>
-            <div class="space-x-6 text-sm font-semibold text-slate-600">
+            <a href="/" class="text-2xl font-extrabold tracking-tight text-slate-800 hover:scale-105 transition-transform">Dev<span class="text-blue-600">Blog</span></a>
+            <div class="flex items-center space-x-6 text-sm font-semibold text-slate-600">
                 <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
-                <a href="#" class="hover:text-blue-600 transition-colors">Tentang</a>
+                <a href="https://github.com" target="_blank" class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-blue-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">GitHub Saya</a>
             </div>
         </div>
     </nav>
-
-    <!-- Header Beranda -->
-    <header class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4">Eksplorasi Kode & Desain</h1>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto">Kumpulan artikel, tutorial, dan catatan pengembangan seputar teknologi web modern.</p>
+    <header class="max-w-5xl mx-auto px-6 pt-20 pb-16 text-center opacity-0 animate-fade-in-up">
+        <span class="inline-block py-1.5 px-4 rounded-full bg-blue-100/80 text-blue-700 text-sm font-bold mb-6 tracking-wide shadow-sm border border-blue-200/50">🎉 Selamat Datang</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">Eksplorasi Kode <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">& Desain Modern</span></h1>
+        <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">Catatan pengembangan, tutorial, dan ide-ide kreatif seputar teknologi web modern yang diracik menjadi satu.</p>
     </header>
 
-    <!-- Area Grid Artikel (Bento Grid Style) -->
-    <main class="flex-grow w-full max-w-5xl mx-auto px-6 pb-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-artikel">
-            
-            <!-- Script otomatis akan menyuntikkan daftar kartu artikel di sini -->
-            <!-- {{DAFTAR_ARTIKEL}} -->
-
-        </div>
+    <main class="flex-grow w-full max-w-5xl mx-auto px-6 pb-20 opacity-0 animate-fade-in-up delay-200">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="grid-artikel">
+            </div>
     </main>
 
-    <footer class="py-8 text-center text-sm text-slate-500 border-t border-slate-200">
-        <p>&copy; 2026 Devlog.</p>
+    <footer class="py-8 text-center text-sm font-medium text-slate-400 border-t border-slate-200 bg-white/50 backdrop-blur-sm">
+        <p>&copy;2026 Edward Domakubun. All rights reserved.</p>
     </footer>
 
 </body>
