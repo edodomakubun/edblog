@@ -1,0 +1,21 @@
+{
+  "name": "my-dev-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js && mv _site_index.html index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edodomakubun/edblog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/edodomakubun/edblog/issues"
+  },
+  "homepage": "https://github.com/edodomakubun/edblog#readme"
+}

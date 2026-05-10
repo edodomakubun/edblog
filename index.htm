@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda | Dev Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 antialiased min-h-screen flex flex-col font-sans relative">
+    
+    <!-- Elemen Background Dekoratif -->
+    <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-br from-blue-100 to-purple-50 rounded-b-[3rem] -z-10"></div>
+
+    <!-- Navbar Glassmorphism -->
+    <nav class="sticky top-0 z-50 bg-white/40 backdrop-blur-xl border-b border-white/40 shadow-sm">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-extrabold tracking-tight text-slate-800">Dev<span class="text-blue-600">Blog</span></a>
+            <div class="space-x-6 text-sm font-semibold text-slate-600">
+                <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Tentang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Beranda -->
+    <header class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4">Eksplorasi Kode & Desain</h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">Kumpulan artikel, tutorial, dan catatan pengembangan seputar teknologi web modern.</p>
+    </header>
+
+    <!-- Area Grid Artikel (Bento Grid Style) -->
+    <main class="flex-grow w-full max-w-5xl mx-auto px-6 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-artikel">
+            
+            <!-- Script otomatis akan menyuntikkan daftar kartu artikel di sini -->
+            <!-- {{DAFTAR_ARTIKEL}} -->
+
+        </div>
+    </main>
+
+    <footer class="py-8 text-center text-sm text-slate-500 border-t border-slate-200">
+        <p>&copy; 2026 DevBlog.</p>
+    </footer>
+
+</body>
+</html>
