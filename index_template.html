@@ -5,26 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda | Dev Blog</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-image: radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 28%), radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.1), transparent 22%); }
+        .hero-gradient { background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9)); }
+        .hero-gradient::after { content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.22), transparent 35%);
+            pointer-events: none;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 antialiased min-h-screen flex flex-col font-sans">
-    
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-extrabold text-slate-800">Dev<span class="text-blue-600">Blog</span></a>
-            <a href="/" class="text-sm font-semibold text-slate-600 hover:text-blue-600">Beranda</a>
+<body class="min-h-screen flex flex-col font-sans text-slate-900">
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0">
+            <a href="/" class="text-2xl font-extrabold tracking-tight text-slate-900">Dev<span class="text-blue-600">Blog</span></a>
+            <div class="flex items-center gap-6">
+                <a href="/" class="text-sm font-semibold text-slate-600 hover:text-slate-900 transition">Beranda</a>
+                <a href="#articles" class="text-sm font-semibold text-slate-600 hover:text-slate-900 transition">Artikel</a>
+                <a href="#about" class="text-sm font-semibold text-slate-600 hover:text-slate-900 transition">Tentang</a>
+            </div>
         </div>
     </nav>
 
-    <header class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Eksplorasi Kode & Desain Modern</h1>
-        <p class="text-lg text-slate-600">Catatan pengembangan, tutorial, dan ide-ide kreatif.</p>
+    <header class="relative overflow-hidden hero-gradient text-white">
+        <div class="absolute inset-0 opacity-60 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800"></div>
+        <div class="relative max-w-6xl mx-auto px-6 py-20 md:py-28 lg:py-32">
+            <div class="max-w-3xl">
+                <span class="inline-flex items-center rounded-full bg-white/10 px-4 py-1 text-sm font-semibold uppercase tracking-[0.24em] text-slate-200 mb-6">Inspirasi coding & desain</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Bangun proyek modern dengan catatan yang ringkas, jelas, dan profesional.</h1>
+                <p class="mt-6 text-lg md:text-xl text-slate-200/90 max-w-2xl">Temukan tutorial, insight, dan eksperimen desain yang membantu Anda bergerak dari ide ke implementasi dengan lebih percaya diri.</p>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                    <a href="#articles" class="inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 hover:bg-blue-400 transition">Jelajahi Artikel</a>
+                    <a href="#about" class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15 transition">Tentang Blog</a>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main class="flex-grow w-full max-w-5xl mx-auto px-6 pb-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {{GRID}}
-        </div>
+    <main class="flex-grow">
+        <section id="articles" class="max-w-6xl mx-auto px-6 py-16">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+                <div>
+                    <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Artikel terbaru</p>
+                    <h2 class="mt-3 text-3xl md:text-4xl font-bold text-slate-900">Kumpulkan wawasan yang berguna untuk setiap projekmu.</h2>
+                </div>
+                <p class="text-sm text-slate-600 max-w-md">Dari praktek coding hingga desain UI, setiap artikel dibuat untuk memandu kamu dengan langkah jelas dan contoh nyata.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                {{GRID}}
+            </div>
+        </section>
+
+        <section id="about" class="bg-slate-950 text-slate-100 py-16">
+            <div class="max-w-6xl mx-auto px-6 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-center">
+                <div>
+                    <h3 class="text-3xl font-bold">Blog ini untuk developer yang ingin terus berkembang.</h3>
+                    <p class="mt-5 text-slate-300 leading-relaxed">Setiap publikasi dirancang untuk memecah topik kompleks menjadi bagian praktis, sehingga bisa langsung dipelajari dan diterapkan. Ideal untuk pemula yang ingin naik level dan profesional yang ingin tetap up-to-date.</p>
+                </div>
+                <div class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-xl shadow-slate-900/20">
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.24em] text-slate-400">Topik utama</p>
+                            <p class="mt-3 text-lg font-semibold">Frontend modern, Tailwind CSS, JavaScript, dan best practice UX.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.24em] text-slate-400">Gaya penulisan</p>
+                            <p class="mt-3 text-lg font-semibold">Ringkas, langsung ke inti, lengkap dengan kode dan ilustrasi.</p>
+                        </div>
+                        <div>
+                            <p class="text-sm uppercase tracking-[0.24em] text-slate-400">Tujuan</p>
+                            <p class="mt-3 text-lg font-semibold">Membantu kamu membangun produk yang terlihat profesional dan bekerja dengan baik.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <footer class="border-t border-slate-200 bg-white py-8">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-slate-600">
+            <p>&copy; 2026 DevBlog. Semua hak cipta dilindungi.</p>
+            <p>Desain modern, konten berkualitas.</p>
+        </div>
+    </footer>
+</body>
+</html>
 
     <footer class="py-8 text-center text-sm text-slate-500 border-t bg-white">
         <p>&copy; 2026 DevBlog.</p>
