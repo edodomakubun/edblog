@@ -14,6 +14,52 @@
             background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.22), transparent 35%);
             pointer-events: none;
         }
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            background: white;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            transition: all 0.3s;
+        }
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1), 0 10px 10px -5px rgb(0 0 0 / 0.04);
+        }
+        .article-card.list-mode {
+            flex-direction: row;
+            height: 200px;
+        }
+        .article-card.list-mode .image-container {
+            width: 250px;
+            height: 100%;
+            flex-shrink: 0;
+        }
+        .article-card.list-mode .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .article-card.list-mode .content {
+            flex: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .article-card.list-mode .badge {
+            margin-bottom: 0.5rem;
+        }
+        .article-card.list-mode .title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .article-card.list-mode .excerpt {
+            margin-bottom: 1rem;
+            min-height: auto;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans text-slate-900">
@@ -53,15 +99,15 @@
                         <p class="text-sm uppercase tracking-[0.24em] text-slate-500">Artikel terbaru</p>
                         <h2 class="mt-3 text-3xl md:text-4xl font-bold text-slate-900">Kumpulkan wawasan yang berguna untuk setiap projekmu.</h2>
                     </div>
-                    <p class="text-sm text-slate-600 max-w-md">Dari praktek coding hingga desain UI, setiap artikel dibuat untuk memandu kamu dengan langkah jelas dan contoh nyata.</p>
+                <div class="flex items-center gap-4">
+                    <p class="text-sm text-slate-600 max-w-md hidden lg:block">Dari praktek coding hingga desain UI, setiap artikel dibuat untuk memandu kamu dengan langkah jelas dan contoh nyata.</p>
+                    <div class="flex gap-2">
+                        <button id="grid-view" class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition">Grid</button>
+                        <button id="list-view" class="px-4 py-2 text-sm bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition">List</button>
+                    </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {{GRID}}
-                </div>
-            </section>
-
-            <aside class="lg:sticky lg:top-28 space-y-6 self-start">
-                {{SIDEBAR}}
+            </div>
+            <div id="articles-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             </aside>
         </div>
 
@@ -97,6 +143,29 @@
             <p>Desain modern, konten berkualitas.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridViewBtn = document.getElementById('grid-view');
+            const listViewBtn = document.getElementById('list-view');
+            const container = document.getElementById('articles-container');
+            const cards = container.querySelectorAll('.article-card');
+
+            gridViewBtn.addEventListener('click', function() {
+                container.className = 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8';
+                cards.forEach(card => card.classList.remove('list-mode'));
+                gridViewBtn.className = 'px-4 py-2 text-sm bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition';
+                listViewBtn.className = 'px-4 py-2 text-sm bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition';
+            });
+
+            listViewBtn.addEventListener('click', function() {
+                container.className = 'flex flex-col gap-6';
+                cards.forEach(card => card.classList.add('list-mode'));
+                listViewBtn.className = 'px-4 py-2 text-sm bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition';
+                gridViewBtn.className = 'px-4 py-2 text-sm bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300 transition';
+            });
+        });
+    </script>
 </body>
 </html>
 
