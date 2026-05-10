@@ -32,7 +32,7 @@ files.forEach(file => {
 
     // Buat HTML Kartu
     gridHtml += `
-    <a href="/artikel/${slug}" class="block bg-white rounded-2xl overflow-hidden shadow-sm border hover:shadow-md transition-all duration-300">
+    <a href="artikel/${slug}.html" class="block bg-white rounded-2xl overflow-hidden shadow-sm border hover:shadow-md transition-all duration-300">
         <div class="h-52 w-full overflow-hidden">
             <img src="${gambar}" alt="${judul}" class="w-full h-full object-cover">
         </div>
@@ -44,13 +44,13 @@ files.forEach(file => {
     `;
 
     // Gabungkan isi artikel ke template artikel
-    const finalArticleHtml = articleTemplate.replace('', content);
+    const finalArticleHtml = articleTemplate.replace('{{CONTENT}}', content);
     fs.writeFileSync(path.join(artikelOutputDir, `${slug}.html`), finalArticleHtml);
 });
 
 // Gabungkan kartu ke template index
 let indexTemplateContent = fs.readFileSync(indexTemplateFile, 'utf-8');
-const finalIndex = indexTemplateContent.replace('', gridHtml);
+const finalIndex = indexTemplateContent.replace('{{GRID}}', gridHtml);
 fs.writeFileSync(indexOutputFile, finalIndex);
 
 console.log("Proses build selesai dan berhasil.");
