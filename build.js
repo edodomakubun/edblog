@@ -6,6 +6,7 @@ const artikelOutputDir = path.join(__dirname, 'artikel');
 const indexTemplateFile = path.join(__dirname, 'index_template.html');
 const articleTemplateFile = path.join(__dirname, 'template.html');
 const indexOutputFile = path.join(__dirname, 'index.html');
+const halamanDir = path.join(__dirname, 'halaman');
 
 if (!fs.existsSync(kontenDir)) {
     console.log("Folder /konten tidak ada!");
@@ -14,8 +15,12 @@ if (!fs.existsSync(kontenDir)) {
 if (!fs.existsSync(artikelOutputDir)) {
     fs.mkdirSync(artikelOutputDir);
 }
+if (!fs.existsSync(halamanDir)) {
+    fs.mkdirSync(halamanDir);
+}
 
 const files = fs.readdirSync(kontenDir).filter(f => f.endsWith('.html'));
+const pageFiles = fs.readdirSync(halamanDir).filter(f => f.endsWith('.page.html'));
 let gridHtml = '';
 let articleTemplate = fs.readFileSync(articleTemplateFile, 'utf-8');
 
@@ -59,5 +64,14 @@ files.forEach(file => {
 let indexTemplateContent = fs.readFileSync(indexTemplateFile, 'utf-8');
 const finalIndex = indexTemplateContent.replace('{{GRID}}', gridHtml);
 fs.writeFileSync(indexOutputFile, finalIndex);
+
+if (pageFiles.length > 0) {
+    pageFiles.forEach(file => {
+        const slug = file.replace('.page.html', '');
+        const content = fs.readFileSync(path.join(halamanDir, file), 'utf-8');
+        const finalPageHtml = articleTemplate.replace('{{CONTENT}}', content);
+        fs.writeFileSync(path.join(halamanDir, `${slug}.html`), finalPageHtml);
+    });
+}
 
 console.log("Proses build selesai dan berhasil.");
