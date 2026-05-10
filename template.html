@@ -25,10 +25,16 @@
         </div>
     </nav>
 
-    <main class="flex-grow w-full max-w-3xl mx-auto px-6 py-12">
-        <article class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose">
-            {{CONTENT}}
-        </article>
+    <main class="flex-grow">
+        <div class="max-w-6xl mx-auto px-6 py-16 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-10">
+            <article class="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 prose">
+                {{CONTENT}}
+            </article>
+
+            <aside class="lg:sticky lg:top-28 space-y-6 self-start mt-10 lg:mt-0">
+                {{SIDEBAR}}
+            </aside>
+        </div>
     </main>
 
     <footer class="mt-auto py-8 text-center text-sm text-slate-500 bg-white border-t">

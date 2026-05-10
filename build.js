@@ -19,10 +19,15 @@ if (!fs.existsSync(halamanDir)) {
     fs.mkdirSync(halamanDir);
 }
 
+const sidebarFile = path.join(__dirname, 'sidebar.html');
 const files = fs.readdirSync(kontenDir).filter(f => f.endsWith('.html'));
 const pageFiles = fs.readdirSync(halamanDir).filter(f => f.endsWith('.page.html'));
 let gridHtml = '';
 let articleTemplate = fs.readFileSync(articleTemplateFile, 'utf-8');
+let sidebarContent = fs.readFileSync(sidebarFile, 'utf-8');
+
+// Replace sidebar in article template
+articleTemplate = articleTemplate.replace('{{SIDEBAR}}', sidebarContent);
 
 files.forEach(file => {
     const slug = file.replace('.html', '');
@@ -62,6 +67,7 @@ files.forEach(file => {
 
 // Gabungkan kartu ke template index
 let indexTemplateContent = fs.readFileSync(indexTemplateFile, 'utf-8');
+indexTemplateContent = indexTemplateContent.replace('{{SIDEBAR}}', sidebarContent);
 const finalIndex = indexTemplateContent.replace('{{GRID}}', gridHtml);
 fs.writeFileSync(indexOutputFile, finalIndex);
 
